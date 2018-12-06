@@ -6,7 +6,7 @@ import java.io.*;
 class ClipboardTest
 {
 //	public ClipboardTest() {
-//		
+//		clearClipBoard();
 //    	System.out.println(getClipBoard());
 //	}
 //    public static void main(String[] args)
@@ -15,9 +15,10 @@ class ClipboardTest
 //    	new ClipboardTest();
 //    }
     
-    public String getClipBoard(){
+    public String getClipBoard() /*throws HeadlessException,
+    UnsupportedFlavorException, IOException*/{
         try {
-        	System.out.println("CP1");
+        	//System.out.println("CP1");
             return (String)Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
         } catch (HeadlessException e) {
             // TODO Auto-generated catch block
@@ -30,5 +31,16 @@ class ClipboardTest
             e.printStackTrace();
         }
         return "";
+    }
+    
+    
+    public void clearClipBoard()/* throws HeadlessException,
+    UnsupportedFlavorException, IOException*/ {
+    	try {
+            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(" "), null);
+        } catch (HeadlessException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();            
+        } 
     }
 }

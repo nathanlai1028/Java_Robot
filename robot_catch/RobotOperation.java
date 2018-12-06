@@ -65,7 +65,7 @@ public class RobotOperation {
 			Robot r = new Robot();
 			r.keyPress(KeyEvent.VK_SHIFT);
 			
-			int fieldNumber = 10;              //Set the number program needs to highlight
+			int fieldNumber = 25 ;              //Set the number program needs to highlight
 			for(int i= 0; i<fieldNumber;i++) {
 			r.keyPress(KeyEvent.VK_LEFT);
 			r.delay(10);
@@ -87,7 +87,7 @@ public class RobotOperation {
 		try {
 			Robot r = new Robot();
 			r.keyPress(KeyEvent.VK_SHIFT);
-			int fieldNumber = 10;              //Set the number program needs to highlight
+			int fieldNumber = 25;              //Set the number program needs to highlight
 			for(int i= 0; i<fieldNumber;i++) {
 			r.keyPress(KeyEvent.VK_RIGHT);
 			r.delay(10);
@@ -171,7 +171,7 @@ public class RobotOperation {
 	public static void shortDelay() { //set the delay
 		try {
 			Robot r = new Robot();
-			r.delay(30); 
+			r.delay(50); 
 		}
 		catch (AWTException e) {
 		e.printStackTrace();
@@ -179,6 +179,33 @@ public class RobotOperation {
 		
 	}
 	
+	public static void dontHighlight() {
+		try {
+			Robot r = new Robot();
+			for(int i = 0; i < 30; i++) {
+			r.keyPress(KeyEvent.VK_LEFT);
+			r.delay(2);
+			r.keyRelease(KeyEvent.VK_LEFT);
+			}
+		}
+		catch (AWTException e) {
+		e.printStackTrace();
+		}	
+		
+	}
+	
+	public static void pageDown() {
+		try {
+			Robot r = new Robot();
+			r.keyPress(KeyEvent.VK_PAGE_DOWN);
+			r.delay(2);
+			r.keyRelease(KeyEvent.VK_PAGE_DOWN);
+			}
+		
+		catch (AWTException e) {
+		e.printStackTrace();
+		}
+	}
 	
 	
 	

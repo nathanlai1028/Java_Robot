@@ -1,24 +1,136 @@
 package robot_catch;
-//package com.sjc.toy;
-import java.awt.Robot;
 import java.io.*;
 import java.util.*;
+//package com.sjc.toy;
 import java.awt.*;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.*;
 
 
 public class robot {
-	public String property[] = new String[30];
+	public String property[] = new String[40];
 	RobotOperation action = new RobotOperation();
 	writer test = new writer();
 	ClipboardTest clip = new ClipboardTest();
 	
-	public robot() {
+	public robot(){
 		actionRetail();
-		
 	}
 	
-//asjdfnhiasdhfijasdf
+	public void actionRetail()  {
+		int pointer = 0;
+		action.switchWindows();
+		action.delay();
+		pointer = street(pointer);					//Street
+//		System.out.println("Pointer:" + pointer);
+		action.selectRightShift();					//Building
+		pointer = _normalCopy(pointer);
+				
+		doubleTab();
+		
+		pointer = _normalCopy(pointer);				//DD Lot
+		action.tab();
+		action.dontHighlight();	
+		action.selectRightShift();					//Shop No
+		pointer = _normalCopy(pointer);
+		action.tab();
+		action.dontHighlight();	
+		action.selectRightShift();					//Chinese Floor Name
+		pointer = _normalCopy(pointer);
+		action.tab();
+		action.dontHighlight();						//English Floor Name
+		action.selectRightShift();
+		pointer = _normalCopy(pointer);				
+		action.tab();
+		action.dontHighlight();						//Facing
+		action.selectRightShift();
+		pointer = _normalCopy(pointer);					
+		action.tab();
+		pointer = _normalCopy(pointer);				//Area
+		action.tab();
+		
+		
+		for(int i = 0; i< 4; i++) {
+		pointer = _normalCopy(pointer);				//Gross Area
+		action.tab();
+		pointer = _normalCopy(pointer);				//Net Area
+		doubleTab();
+		}
+		
+		action.tab();								//Tab after * button
+		
+		/*Here I will skip the other field to the contacts field*/
+		
+		for(int i =0; i<18 ; i++) {
+			action.tab();
+		}
+		
+		action.selectRightShift();					//Company Name
+		pointer = _normalCopy(pointer);					
+		action.tab();
+		for(int i = 0; i< 2; i++) {
+		action.selectRightShift();					//Contact 1
+		pointer = _normalCopy(pointer);					
+		action.tab();
+		action.tab();
+		action.tab();
+		action.selectRightShift();					//Number 1
+		pointer = _normalCopy(pointer);	
+		doubleTab();
+		action.selectRightShift();					//Number 2
+		pointer = _normalCopy(pointer);	
+		doubleTab();
+		}
+		
+		action.pageDown();
+		checking();
+	}
+	
+	
+	public int street(int pointer) {         //Retail Program Use Only
+		for(int i = 0; i< 4; i++) {
+		action.selectRightShift();
+		action.copy();
+		property[pointer] = clip.getClipBoard();
+		clip.clearClipBoard();
+//		System.out.println("CP2: "+ property[pointer]);
+		pointer++;
+		
+		action.shortDelay();
+		
+		doubleTab();						//Copy Street Number
+		action.copy();
+		property[pointer] = clip.getClipBoard();
+//		System.out.println("CP3: "+ property[pointer]);
+		clip.clearClipBoard();
+		pointer++;
+		action.shortDelay();
+		
+		
+		action.tab();
+		
+		if(i == 0) {						//Copy District Code
+		action.copy();						
+		property[pointer] = clip.getClipBoard();
+//		System.out.println("CP2: "+ property[pointer]);+
+		clip.clearClipBoard();
+		pointer++;
+		action.shortDelay();
+		doubleTab();
+			}
+		}
+		return pointer;
+	}
+	
+	
+	
+	public int _normalCopy(int pointer) {
+		action.copy();
+		property[pointer] = clip.getClipBoard();
+		pointer++;
+		clip.clearClipBoard();
+		return pointer;
+	}
 	
 	public void selectCopy() {
 		action.selectCtrl();
@@ -30,33 +142,12 @@ public class robot {
 		action.tab();
 	}
 	
-	public void normalCopy() {
-		
+	private void checking() {
+		for (int i = 0; i<property.length; i++ ) {
+			System.out.println(property[i]);
+		}
 	}
-	
 
-	public void actionRetail() {
-		int pointer = 0;
-		action.switchWindows();
-		action.delay();
-		action.selectRightShift();
-		action.copy();
-		property[pointer] = clip.getClipBoard();
-		System.out.println("CP2: "+ property[pointer]);
-		pointer++;
-		action.shortDelay();
-		doubleTab();
-		action.copy();
-		property[pointer] = clip.getClipBoard();
-		System.out.println("CP3: "+ property[pointer]);
-		pointer++;
-		action.shortDelay();
-		action.tab();
-		action.copy();
-		property[pointer] = clip.getClipBoard();
-		System.out.println("CP2: "+ property[pointer]);
-		
-	}
 
 //	public void doThis(){
 //		T t = new T();

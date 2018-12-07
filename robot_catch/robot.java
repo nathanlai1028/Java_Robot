@@ -13,14 +13,27 @@ public class robot {
 	writer test = new writer();
 	ClipboardTest clip = new ClipboardTest();
 	
-	public robot(){
+	public robot()throws HeadlessException,
+    UnsupportedFlavorException, IOException{
 		actionRetail();
 	}
 	
-	public void actionRetail()  {
+	public void actionRetail() throws HeadlessException,
+    UnsupportedFlavorException, IOException {
+		int propertyNumber = 6;					//Set how many property record to Loop
+		for (int i = 0; i < propertyNumber; i++) {
 		int pointer = 0;
+		if(i != 0){ 							// Tab to Street Name
+			action.delay();
+			for(int j = 0; j< 15; j++) {
+				action.tab();
+			}
+			action.shortDelay();
+		}
+		else {
 		action.switchWindows();
 		action.delay();
+		}
 		pointer = street(pointer);					//Street
 //		System.out.println("Pointer:" + pointer);
 		action.selectRightShift();					//Building
@@ -50,7 +63,7 @@ public class robot {
 		action.tab();
 		
 		
-		for(int i = 0; i< 4; i++) {
+		for(int j = 0; j< 4; j++) {
 		pointer = _normalCopy(pointer);				//Gross Area
 		action.tab();
 		pointer = _normalCopy(pointer);				//Net Area
@@ -61,14 +74,15 @@ public class robot {
 		
 		/*Here I will skip the other field to the contacts field*/
 		
-		for(int i =0; i<18 ; i++) {
+		for(int j =0; j<18 ; j++) {
 			action.tab();
 		}
 		
 		action.selectRightShift();					//Company Name
 		pointer = _normalCopy(pointer);					
 		action.tab();
-		for(int i = 0; i< 2; i++) {
+		
+		for(int j = 0; j< 2; j++) {
 		action.selectRightShift();					//Contact 1
 		pointer = _normalCopy(pointer);					
 		action.tab();
@@ -82,39 +96,35 @@ public class robot {
 		doubleTab();
 		}
 		
+		test.writer(property,pointer);
+		
+		
+		
 		action.pageDown();
 		checking();
+		}
+		//Finish First Turn
+		
+		
+		
 	}
 	
 	
-	public int street(int pointer) {         //Retail Program Use Only
+	public int street(int pointer)throws HeadlessException,
+    UnsupportedFlavorException, IOException {         //Retail Program Use Only
 		for(int i = 0; i< 4; i++) {
 		action.selectRightShift();
-		action.copy();
-		property[pointer] = clip.getClipBoard();
-		clip.clearClipBoard();
-//		System.out.println("CP2: "+ property[pointer]);
-		pointer++;
-		
+		pointer = _normalCopy(pointer);	
 		action.shortDelay();
 		
-		doubleTab();						//Copy Street Number
-		action.copy();
-		property[pointer] = clip.getClipBoard();
-//		System.out.println("CP3: "+ property[pointer]);
-		clip.clearClipBoard();
-		pointer++;
-		action.shortDelay();
-		
+		doubleTab();						
+		action.selectRightShift();					//Copy Street Number
+		pointer = _normalCopy(pointer);	
 		
 		action.tab();
 		
-		if(i == 0) {						//Copy District Code
-		action.copy();						
-		property[pointer] = clip.getClipBoard();
-//		System.out.println("CP2: "+ property[pointer]);+
-		clip.clearClipBoard();
-		pointer++;
+		if(i == 0) {								//Copy District Code
+		pointer = _normalCopy(pointer);	
 		action.shortDelay();
 		doubleTab();
 			}
@@ -124,18 +134,21 @@ public class robot {
 	
 	
 	
-	public int _normalCopy(int pointer) {
+	public int _normalCopy(int pointer)throws HeadlessException,
+    UnsupportedFlavorException, IOException {
+		action.shortDelay();						//Must ADD Delay time to avoid java.lang.IllegalStateException
 		action.copy();
-		property[pointer] = clip.getClipBoard();
+		action.shortDelay();	
+		property[pointer] = "\"" + clip.getClipBoard() + "\"";
 		pointer++;
 		clip.clearClipBoard();
 		return pointer;
 	}
 	
-	public void selectCopy() {
-		action.selectCtrl();
-		action.copy();
-	}
+//	public void selectCopy() {
+//		action.selectCtrl();
+//		action.copy();
+//	}
 	
 	public void doubleTab() {
 		action.tab();
@@ -183,7 +196,8 @@ public class robot {
 //	
 	
 
-public static void main(String[] args){
+public static void main(String[] args)throws HeadlessException,
+UnsupportedFlavorException, IOException{
 	//new robot().doThis();
 	new robot();
 }

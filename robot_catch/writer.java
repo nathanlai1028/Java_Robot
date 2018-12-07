@@ -11,7 +11,7 @@ public class writer {
 //		public writer() {
 //			writer(propertyRecord);
 //		}
-		public void writer(String[] propertyRecord) {
+		public void writer(String[] propertyRecord,int pointer) {
 			getString(propertyRecord);
 			
 			BufferedWriter bw = null;
@@ -21,16 +21,18 @@ public class writer {
 				fw = new FileWriter(FILENAME,true);
 				bw = new BufferedWriter(fw);
 										
-				for(int i=0; i < propertyRecord.length; i++) {
+				for(int i=0; i < pointer; i++) {
 				String content = propertyRecord[i];
 							
 				bw.write(content);
-				bw.write(";");
 				
-					if(i == propertyRecord.length - 1) {
-						//bw.write('\n');
-						bw.newLine();
-						System.out.println("CP1");
+					if(i != pointer -1) {					
+					bw.write(",");
+					//bw.write('\n');
+					}
+					else {										//Last Record did not need ","; it needs to switch line
+					bw.newLine();
+					System.out.println("CP1");
 					}
 				}
 				System.out.println("Done");

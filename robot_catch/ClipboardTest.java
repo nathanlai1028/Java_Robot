@@ -15,8 +15,8 @@ class ClipboardTest
 //    	new ClipboardTest();
 //    }
     
-    public String getClipBoard() /*throws HeadlessException,
-    UnsupportedFlavorException, IOException*/{
+    public String getClipBoard() throws HeadlessException,
+    UnsupportedFlavorException, IOException{
         try {
         	//System.out.println("CP1");
             return (String)Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);

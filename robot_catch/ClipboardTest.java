@@ -3,8 +3,9 @@ import java.awt.*;
 import java.awt.datatransfer.*;
 import java.io.*;
 
-class ClipboardTest
-{
+class ClipboardTest extends Thread implements ClipboardOwner
+{ 
+	Clipboard sysClip = Toolkit.getDefaultToolkit().getSystemClipboard();
 //	public ClipboardTest() {
 //		clearClipBoard();
 //    	System.out.println(getClipBoard());
@@ -15,12 +16,15 @@ class ClipboardTest
 //    	new ClipboardTest();
 //    }
     
-    public String getClipBoard() throws HeadlessException,
-    UnsupportedFlavorException, IOException{
+    public String getClipBoard() throws NullPointerException,
+    IllegalStateException,UnsupportedFlavorException, IOException{
+    	
+//    	while(true) {
         try {
         	//System.out.println("CP1");
-            return (String)Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
-        } catch (HeadlessException e) {
+            //return (String)Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+        	return (String)sysClip.getData(DataFlavor.stringFlavor);
+        } catch (NullPointerException | IllegalStateException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();            
         } catch (UnsupportedFlavorException e) {
@@ -30,17 +34,38 @@ class ClipboardTest
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        try {
+            Thread.sleep(40);
+        } catch (InterruptedException ex) {
+        }
         return "";
-    }
+              
+    
+    	}
+//    }
     
     
     public void clearClipBoard()/* throws HeadlessException,
     UnsupportedFlavorException, IOException*/ {
     	try {
-            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(" "), null);
+            sysClip.setContents(new StringSelection(" "), null);
         } catch (HeadlessException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();            
         } 
     }
+    
+    public void lostOwnership(Clipboard c, Transferable t) {
+    	  try {
+    	    this.sleep(50);
+    	  } catch(Exception e) {
+    	    System.out.println("Exception: " + e);
+    	  }
+    	  Transferable contents = sysClip.getContents(this);
+    	  regainOwnership(contents);
+    	}
+    
+    void regainOwnership(Transferable t) {
+        sysClip.setContents(t, this);
+      }
 }

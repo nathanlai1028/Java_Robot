@@ -16,6 +16,36 @@ public class robot {
 	public robot()throws HeadlessException,
     UnsupportedFlavorException, IOException{
 		actionRetail();
+//		action();
+	}
+	
+	
+	public void action() throws NullPointerException,
+    IllegalStateException,UnsupportedFlavorException, IOException{
+		int propertyNumber = 10;					//Set how many property record to Loop
+		for (int i = 0; i < propertyNumber; i++) {
+		int pointer = 0;
+		if(i != 0){ 							// Tab to Street Name
+			action.delay();
+			for(int j = 0; j< 15; j++) {
+				action.tab();
+			}
+			action.shortDelay();
+		}
+		else {
+		action.switchWindows();
+		action.delay();
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		}
 	}
 	
 	public void actionRetail() throws HeadlessException,
@@ -31,7 +61,7 @@ public class robot {
 			action.shortDelay();
 		}
 		else {
-		action.switchWindows();
+		action.switchWindows();					//First time Switch to Retail Program
 		action.delay();
 		}
 		pointer = street(pointer);					//Street

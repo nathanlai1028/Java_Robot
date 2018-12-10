@@ -15,8 +15,8 @@ public class robot {
 	
 	public robot()throws HeadlessException,
     UnsupportedFlavorException, IOException{
-		actionRetail();
-//		action();
+		actionRetail();				// Use Unicorn Retail Program to be a demo
+//		action();					// Real implements program
 	}
 	
 	

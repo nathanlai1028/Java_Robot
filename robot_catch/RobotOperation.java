@@ -68,9 +68,9 @@ public class RobotOperation {
 			int fieldNumber = 25 ;              //Set the number program needs to highlight
 			for(int i= 0; i<fieldNumber;i++) {
 			r.keyPress(KeyEvent.VK_LEFT);
-			r.delay(10);
+			r.delay(5);
 			r.keyRelease(KeyEvent.VK_LEFT);
-			r.delay(10);
+			r.delay(5);
 			}
 			r.delay(20); //set the delay
 			
@@ -90,9 +90,9 @@ public class RobotOperation {
 			int fieldNumber = 25;              //Set the number program needs to highlight
 			for(int i= 0; i<fieldNumber;i++) {
 			r.keyPress(KeyEvent.VK_RIGHT);
-			r.delay(10);
+			r.delay(5);
 			r.keyRelease(KeyEvent.VK_RIGHT);
-			r.delay(10);
+			r.delay(5);
 			}
 			
 			r.delay(20); //set the delay
@@ -126,7 +126,7 @@ public class RobotOperation {
 		try {
 			Robot r = new Robot();
 			r.keyPress(KeyEvent.VK_TAB);
-			r.delay(30); //set the delay
+			r.delay(5); //set the delay
 			r.keyRelease(KeyEvent.VK_TAB);
 		}
 		catch (AWTException e) {
@@ -171,7 +171,7 @@ public class RobotOperation {
 	public static void shortDelay() { //set the delay
 		try {
 			Robot r = new Robot();
-			r.delay(50); 
+			r.delay(20); 
 		}
 		catch (AWTException e) {
 		e.printStackTrace();

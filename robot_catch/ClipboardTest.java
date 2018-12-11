@@ -53,6 +53,10 @@ class ClipboardTest extends Thread implements ClipboardOwner
             // TODO Auto-generated catch block
             e.printStackTrace();            
         } 
+    	catch (NullPointerException | IllegalStateException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace(); }
+    	
     }
     
     public void lostOwnership(Clipboard c, Transferable t) {

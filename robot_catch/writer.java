@@ -4,7 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 public class writer {
 
-		private static final String FILENAME = "D:\\sysConTest\\filename.txt";
+		private static final String FILENAME = "C:\\Unicorn\\text.txt";
 		String[] propertyRecord;
 		
 		

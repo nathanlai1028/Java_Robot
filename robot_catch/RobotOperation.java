@@ -50,10 +50,12 @@ public class RobotOperation {
 		try {
 			Robot r = new Robot();
 			r.keyPress(KeyEvent.VK_CONTROL);
+			r.delay(5);
 			r.keyPress(KeyEvent.VK_A);
 			r.delay(20); //set the delay
 			r.keyRelease(KeyEvent.VK_CONTROL);
 			r.keyRelease(KeyEvent.VK_A);
+			r.delay(5);
 		}
 		catch (AWTException e) {
 		e.printStackTrace();

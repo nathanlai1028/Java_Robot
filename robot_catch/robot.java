@@ -8,45 +8,43 @@ import java.awt.event.*;
 
 
 public class robot {
-	public String property[] = new String[100];
+	public String property[] = new String[80];
 	RobotOperation action = new RobotOperation();
 	writer test = new writer();
 	ClipboardTest clip = new ClipboardTest();
 	scanner scan = new scanner();
-	private int option;
+	private int option = 2;
 	private int propertyNumber;
-	private int page2Needed;
+	private int page2Needed = 2;
 	
 	public robot()throws HeadlessException,
     UnsupportedFlavorException, IOException{
-		getInformation();
-//		actionRetail();				// Use Unicorn Retail Program to be a demo
+//		getInformation();
+		actionRetail();				// Use Unicorn Retail Program to be a demo
 //		action();					// Real implements program
-	}
-	
+			}															
+			
 	public void getInformation() {				// Real implements program			Check OK
 		this.propertyNumber = scan.getPropertyNumber();
-		this.option = scan.getMethod();
-		this.page2Needed = scan.getNeedSecondPage();
+		//this.option = scan.getMethod();
+		//this.page2Needed = scan.getNeedSecondPage();
 //		System.out.println("You entered number " + propertyNumber + ";" + option +";" + page2Needed);
 	}
 	
 	
 	public void action() throws NullPointerException,					// Real implements program
     IllegalStateException,UnsupportedFlavorException, IOException{
-//		int propertyNumber = 10;					//Test Property Number avoiding input number
+		propertyNumber = 3;					//Test Property Number avoiding input number
 		for (int i = 0; i < propertyNumber; i++) {
 		int pointer = 0;
 		
 		if(i != 0){ 							// Tab to Street Name
 			action.delay();
-			/* Need to understand how many fields need to tab after going into next property record
-			
-			for(int j = 0; j< 15; j++) {
-				action.tab();
+			// Need to understand how many fields need to tab after going into next property record
+			if(page2Needed == 1 ) {				
+			action.f5();
 			}
-			action.shortDelay();
-			*/
+			action.shortDelay();	
 		}
 		else {
 		action.switchWindows();					// Switch to the program
@@ -54,9 +52,9 @@ public class robot {
 		}
 		
 		//Start Copying   Not finish YET
-		pointer = page1Left(pointer);
-		
-		pointer = page1Right(pointer);
+		pointer = page1Up(pointer);
+		action.shortDelay();	
+		pointer = page1Down(pointer);
 		
 		
 			if(page2Needed == 1 ) {				
@@ -64,7 +62,7 @@ public class robot {
 			pointer = page2up(pointer);
 			
 				//Skip Land Reg to Photo checkbox
-				for(int j=0;j<12;j++) {
+				for(int j=0;j < 12;j++) {
 					action.tab();
 				}
 				
@@ -77,67 +75,58 @@ public class robot {
 		}
 	}
 	
-	public int page1Left(int pointer)throws HeadlessException,
+	public int page1Up(int pointer)throws HeadlessException,
     UnsupportedFlavorException, IOException {        // Real implements program
 		
-		for (int j = 0; j < 24 ; j++) {      		// To @ Rent
+		for (int j = 0; j < 15 ; j++) {      		// To Unit
 		_selectionMethod();
 		pointer = _normalCopy(pointer);				//Usage
 //		action.shortDelay();
-		action.tab();
-			if(j == 3 || j==7 || j == 8 || j ==9 || j ==10 ) {
-				action.tab();						//Extra Tab to avoid call master
-			}
+		action.tab();	
 		}
-//		From Onwer Name to 4th Remarks
+//		From Property Number to Rent Consent
 
-		for (int j = 0; j < 20 ; j++) {      		
+		for (int j = 0; j < 8 ; j++) {      		
 		_selectionMethod();
 		pointer = _normalCopy(pointer);				//Usage
 //		action.shortDelay();
-		doubleTab();
+		action.tab();	
 		}
 		
 		
 		return pointer;
 	}
 	
-	public int page1Right(int pointer)throws HeadlessException,
+	public int page1Down(int pointer)throws HeadlessException,
     UnsupportedFlavorException, IOException {        // Real implements program
 		
-		for (int j = 0; j < 14 ; j++) {      		// To Email
-		_selectionMethod();
-		pointer = _normalCopy(pointer);				//Usage
-//		action.shortDelay();
-		action.tab();
-			if(j == 0 || j == 11|| j == 12 ) {		//Property Number; Contact Post; Commission
-				action.tab();						//Extra Tab to avoid call master
-			}
-		}
-		
-		for(int j = 0; j<4; j++) {					//Skip 4 checkboxes
-			action.tab();	
-		}
-		
-		for (int j = 0; j < 5 ; j++) {      		// From PRN to Type Date
+		for (int j = 0; j < 43 ; j++) {      		// From Gross Area
+			if(j < 34 || j > 37) {					//LandReg to photo checkbox
 			_selectionMethod();
 			pointer = _normalCopy(pointer);				//Usage
-//			action.shortDelay();
+			action.shortDelay();
 			action.tab();
-		}
-		
+			}
+			else{		//Property Number; Contact Post; Commission
+				action.tab();						//Extra Tab to avoid call master
+			}
+		}		
 		return pointer;
 	}
 	
 	public int page2up(int pointer)throws HeadlessException,
     UnsupportedFlavorException, IOException {        // Real implements program
 		
-		for (int j = 0; j < 8 ; j++) {      		// To PRN
+		for (int j = 0; j < 47 ; j++) {      		// To PRN
+			if(j == 3 || j == 6|| j == 10 || j == 12) {
+				action.tab();
+			}
+			else {
 		_selectionMethod();
 		pointer = _normalCopy(pointer);				//Usage
 //		action.shortDelay();
 		action.tab();
-			
+			}
 		}
 		
 		return pointer;
@@ -164,7 +153,7 @@ public class robot {
 
 	public void actionRetail() throws HeadlessException,
     UnsupportedFlavorException, IOException {
-		int propertyNumber = 30;					//Set how many property record to Loop
+		int propertyNumber = 7;					//Set how many property record to Loop
 		for (int i = 0; i < propertyNumber; i++) {
 		int pointer = 0;
 		if(i != 0){ 							// Tab to Street Name

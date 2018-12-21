@@ -8,26 +8,30 @@ import java.awt.event.*;
 
 
 public class robot {
-	public String property[] = new String[80];
+	public String property[];
 	RobotOperation action = new RobotOperation();
 	writer test = new writer();
 	ClipboardTest clip = new ClipboardTest();
 	scanner scan = new scanner();
-	private int option = 2;
+	private int option = 2;				//Default use Ctrl+A to select all
 	private int propertyNumber;
-	private int page2Needed = 2;
+	private int page2Needed=2;
 	
 	public robot()throws HeadlessException,
     UnsupportedFlavorException, IOException{
 //		getInformation();
-		actionRetail();				// Use Unicorn Retail Program to be a demo
-//		action();					// Real implements program
+//		actionRetail();				// Use Unicorn Retail Program to be a demo
+		action();					// Real implements program
 			}															
 			
 	public void getInformation() {				// Real implements program			Check OK
 		this.propertyNumber = scan.getPropertyNumber();
 		//this.option = scan.getMethod();
-		//this.page2Needed = scan.getNeedSecondPage();
+		this.page2Needed = scan.getNeedSecondPage();
+		if (this.page2Needed == 1) {
+			 property = new String[80];
+		}
+		else { property = new String[127];}
 //		System.out.println("You entered number " + propertyNumber + ";" + option +";" + page2Needed);
 	}
 	
@@ -60,13 +64,7 @@ public class robot {
 			if(page2Needed == 1 ) {				
 			action.f5();
 			pointer = page2up(pointer);
-			
-				//Skip Land Reg to Photo checkbox
-				for(int j=0;j < 12;j++) {
-					action.tab();
-				}
-				
-			pointer = page2down(pointer);
+			//			pointer = page2down(pointer);
 			
 			}
 		test.writer(property,pointer);	

@@ -181,6 +181,17 @@ public class RobotOperation {
 		
 	}
 	
+	public static void middleDelay() { //set the delay
+		try {
+			Robot r = new Robot();
+			r.delay(80); 
+		}
+		catch (AWTException e) {
+		e.printStackTrace();
+		}	
+		
+	}
+	
 	public static void dontHighlight() {
 		try {
 			Robot r = new Robot();

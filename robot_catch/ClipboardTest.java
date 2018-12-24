@@ -19,6 +19,7 @@ class ClipboardTest extends Thread implements ClipboardOwner
     public String getClipBoard() throws NullPointerException,
     IllegalStateException,UnsupportedFlavorException, IOException{
     	boolean noError = false;
+    	int log = 0;
     	do {
     		noError = false;
 	    	try {
@@ -35,14 +36,16 @@ class ClipboardTest extends Thread implements ClipboardOwner
 
 	        } catch (UnsupportedFlavorException e) {
 	            // TODO Auto-generated catch block
-	            e.printStackTrace();      
+	            e.printStackTrace();  
 	            noError = true;
+	            log++;
 	        } catch (IOException e) {
 	            // TODO Auto-generated catch block
 	            e.printStackTrace();
 	            noError = true;
+	            log++;
 	        }
-    	}while(noError);
+    	}while(noError && log < 10);
       
         return "";
               
@@ -54,9 +57,11 @@ class ClipboardTest extends Thread implements ClipboardOwner
     public void clearClipBoard()/* throws HeadlessException,
     UnsupportedFlavorException, IOException*/ {
     	boolean noError = false;
+    	int log = 0;
     	do {
     	try {
             sysClip.setContents(new StringSelection(" "), this);
+            
             noError = false;
         } catch (HeadlessException e) {
             // TODO Auto-generated catch block
@@ -67,13 +72,16 @@ class ClipboardTest extends Thread implements ClipboardOwner
             // TODO Auto-generated catch block
             e.printStackTrace();
             noError = true;
+            log++;
             	try {
                 Thread.sleep(40);
             	} catch (InterruptedException ex) {
             	}
           }
-    	}while(noError);  	
+    	}while(noError && log < 10);  	
     }
+    
+
     
     public void lostOwnership(Clipboard c, Transferable t) {
     	  try {
